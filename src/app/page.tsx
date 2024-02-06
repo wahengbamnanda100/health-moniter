@@ -1,113 +1,163 @@
+"use client";
 import Image from "next/image";
+import BackArror from "../assets/icons/vector.svg";
+import Avatar from "../assets/image/avatar.jpg";
+import { useState } from "react";
+import CustomSelect from "./components/CustomSelect";
+import Pie from "./components/Pie";
+
+import watch from "../assets/image/watch.png";
+
+const tabList = [
+	"connected devices",
+	"statistics",
+	"accounts",
+	"users",
+	"groups",
+];
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+	const [activeButton, setActiveButton] = useState<number | null>(1);
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+	const handleButtonClick = (index: number) => {
+		setActiveButton(index);
+	};
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+	return (
+		<>
+			<div className="container max-w-md mx-auto mb-0 bg-white text-black px-6 pt-8">
+				<div className="flex flex-row justify-between items-center">
+					<div className="flex items-center justify-center rounded-full bg-slate-200 w-16 h-16">
+						<Image
+							priority
+							src={BackArror}
+							alt="back arrow"
+							width={20}
+							height={20}
+							// className="p-3"
+						/>
+						{/* <BackArror /> */}
+					</div>
+					<div className="flex items-center justify-center rounded-full bg-slate-100 w-16 h-16 overflow-hidden">
+						<Image
+							priority
+							src={Avatar}
+							alt="avatar"
+							objectFit={"cover"}
+							width={"100"}
+							height={"100"}
+							// className="p-3"
+						/>
+						{/* <BackArror /> */}
+					</div>
+				</div>
+				<div className=" px-2 py-4">
+					<p className="text-wrap text-4xl font-bold capitalize">Your</p>
+					<p className="text-wrap text-4xl font-bold capitalize">
+						fitness tracker
+					</p>
+				</div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+				<div className="flex space-x-2 overflow-x-auto scroll-m-0">
+					{tabList.map((tab: string, index: number) => (
+						<button
+							key={index}
+							className={`btn ${activeButton === index + 1 ? "active" : ""}`}
+							onClick={() => handleButtonClick(index + 1)}>
+							<p className="text-lg font-bold capitalize py-1 whitespace-nowrap px-4">
+								{tab}
+							</p>
+						</button>
+					))}
+				</div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+				<div className="w-full flex justify-center h-80 mt-4 relative">
+					<div className="inner-box"></div>
+					<div className="middle-box"></div>
+					<div className="top-box mt-12">
+						<div className="flex flex-row justify-between items-center relative">
+							<div className="flex flex-col p-4 py-8 justify-between h-full">
+								<p className="capitalize text-ff8250">smart watch</p>
+								<p className="capitalize text-slate-50 text-3xl font-extrabold">
+									Fire bolt
+								</p>
+								<p className=" text-zinc-400 w-1/2 mt-2">
+									Scan the device QR to connect
+								</p>
+								<button className=" btn active w-1/2 mt-8 ">scan</button>
+							</div>
+							<div className=" absolute top-0 right-0">
+								<Image
+									src={watch}
+									alt="watch"
+									height={310}
+									width={310}
+									style={{ marginTop: "-1rem", marginLeft: "2rem" }}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+				<div className="grid grid-rows-2 grid-cols-4 gap-4 mt-16 justify-center">
+					<div className="meter-box row-span-2 col-span-2 justify-center items-center overflow-hidden">
+						<Pie
+							percentage={30}
+							colour="#FF6020"
+							textColor="#FFFFFF"
+							text="2,772"
+							subtitle="steps"
+						/>
+					</div>
+
+					<div className="col-span-2 desc-box flex flex-col justify-center items-center">
+						<p className="text-ff8250 font-medium capitalize">calories</p>
+						<p className="text-2F2F2F text-xl font-extrabold">1200 Kcal</p>
+					</div>
+
+					<div className="col-span-2 desc-box flex flex-col justify-center items-center">
+						<p className="text-ff8250 font-medium capitalize">water</p>
+						<p className="text-2F2F2F text-xl font-extrabold">1.8 Ltrs</p>
+					</div>
+				</div>
+
+				{/* input form part */}
+
+				<div className="text-box px-4 pt-4 mt-8">
+					<div className=" p-4 flex flex-col gap-4">
+						<p className="text-xl font-bold capitalize text-slate-50 mt-2">
+							Add detail
+						</p>
+
+						<input
+							type="text"
+							placeholder="Name"
+							className=" rounded-full border w-full border-gray-300 bg-white w text-black placeholder-slate-300 font-bold px-4 py-3"
+						/>
+
+						<div className="flex flex-row gap-2">
+							<input
+								type="text"
+								placeholder="Age"
+								className=" rounded-full border w-1/2 border-gray-300 bg-white w text-black placeholder-slate-300 font-bold px-4 py-3"
+							/>
+							<input
+								type="text"
+								placeholder="Height"
+								className=" rounded-full border w-1/2 border-gray-300 bg-white w text-black placeholder-slate-300 font-bold px-4 py-3"
+							/>
+						</div>
+
+						<CustomSelect placeholder="Are you a gym member?" />
+						<CustomSelect placeholder="Do you eat meat?" />
+						<CustomSelect placeholder="Are you a cyclist?" />
+
+						<button className=" save-btn w-full text-xl text-white font-bold px-4 py-3">
+							Save Details
+						</button>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 }
